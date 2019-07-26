@@ -268,7 +268,7 @@ public final class CVCalendarMonthContentViewController: CVCalendarContentViewCo
             isMatchedDays = matchedDays(selectedDate, presentedDate)
             isMatchedMonths = matchedMonths(presentedDate, selectedDate)
         }
-
+        
         if !isMatchedDays && !togglingBlocked {
             if !isMatchedMonths {
                 togglingBlocked = true

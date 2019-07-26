@@ -72,6 +72,7 @@ extension CVCalendarContentViewController {
 
         calendarView.isHidden = false
     }
+
 }
 
 //MARK: - Month Refresh
@@ -89,6 +90,7 @@ extension CVCalendarContentViewController {
             }
         }
     }
+
 }
 
 

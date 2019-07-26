@@ -354,12 +354,22 @@ extension CVCalendarView {
     }
 
     public func changeMode(_ mode: CalendarMode, completion: @escaping () -> () = {}) {
-        let calendar = self.delegate?.calendar?() ?? Calendar.current
-        let shouldSelectRange = self.delegate?.shouldSelectRange?() ?? false
-        
         guard calendarMode != mode else {
             return
         }
+        setMode(mode, completion: completion)
+    }
+    
+    public func reloadCalendar(completion: @escaping () -> () = {}) {
+        guard let calendarMode = calendarMode else {
+            return
+        }
+        setMode(calendarMode, completion: completion)
+    }
+    
+    private func setMode(_ mode: CalendarMode, completion: @escaping () -> () = {}) {
+        let calendar = self.delegate?.calendar?() ?? Calendar.current
+        let shouldSelectRange = self.delegate?.shouldSelectRange?() ?? false
         
         var selectedDate:Date?
         if !shouldSelectRange {
@@ -367,9 +377,7 @@ extension CVCalendarView {
         } else {
             selectedDate = coordinator.selectedStartDayView?.date.convertedDate(calendar: calendar)
         }
-
-        calendarMode = mode
-
+        
         let newController: ContentController
         switch mode {
         case .weekView:
@@ -382,11 +390,11 @@ extension CVCalendarView {
             newController = MonthContentViewController(calendarView: self, frame: bounds,
                                                        presentedDate: selectedDate ?? Date())
         }
-
+        
         newController.updateFrames(bounds)
         newController.scrollView.alpha = 0
         addSubview(newController.scrollView)
-
+        
         UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: { [weak self] in
             self?.contentController.scrollView.alpha = 0
             newController.scrollView.alpha = 1

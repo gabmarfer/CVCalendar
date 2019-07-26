@@ -138,19 +138,19 @@ public func ~> <T: Any>(lhs: inout T?, rhs: T?) -> T? {
 
 extension UIColor {
      static var primaryText: UIColor {
-        if #available(iOS 13, *) {
-            return .label
-        } else {
+//        if #available(iOS 13, *) {
+//            return .label
+//        } else {
             return .black
-        }
+//        }
     }
     
     static var secondaryText: UIColor {
-        if #available(iOS 13, *) {
-            return .secondaryLabel
-        } else {
+//        if #available(iOS 13, *) {
+//            return .secondaryLabel
+//        } else {
             return .gray
-        }
+//        }
     }
     
     public static func colorFromCode(_ code: Int) -> UIColor {
